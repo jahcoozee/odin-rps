@@ -6,10 +6,13 @@ function getComputerChoice() {
 
   // Assign a choice based on that random number
   if (randomNumber > 6) {
+    console.log("The computer chose" + " rock");
     return "rock";
   } else if (randomNumber > 4 && randomNumber < 7) {
+    console.log("The computer chose" + " paper");
     return "paper";
   } else {
+    console.log("The computer chose" + " scissors");
     return "scissors";
   }
 }
@@ -21,44 +24,94 @@ function getPlayerChoice() {
   let playerChoice = prompt("Do you choose rock, paper, or scissors?");
 
   // Make their choice case-insensitive
-  return playerChoice.toLowerCase();
+  playerChoice = playerChoice.toLowerCase();
+  console.log("You chose " + playerChoice);
+  return playerChoice;
 }
+
+// Global variables used to record the status for individual rounds and
+// allow for tracking across multiple around
+let win = "You win! ";
+let lose = "You lose! ";
+let tie = "It's a tie!";
 
 // playRound() to take player's choice and computer's choice and determining a winner for one round
 function playRound(playerChoice, computerChoice) {
-  let win = "You win! ";
-  let lose = "You lose! ";
-  let tie = "It's a tie!";
-
   // Rock conditionals
   if (playerChoice === "rock" && computerChoice === "paper") {
-    return "You lose! " + computerChoice + " beats " + playerChoice;
+    lose += computerChoice + " beats " + playerChoice;
+    return lose;
   } else if (playerChoice === "rock" && computerChoice === "scissors") {
-    return "You win! " + playerChoice + " beats " + computerChoice;
+    win += playerChoice + " beats " + computerChoice;
+    return win;
   } else if (playerChoice === "rock" && computerChoice === "rock") {
-    return "It's a tie!"
+    return tie;
   }
 
   // Paper conditionals
   else if (playerChoice === "paper" && computerChoice === "scissors") {
-    return "You lose! " + computerChoice + " beats " + playerChoice;
+    lose += computerChoice + " beats " + playerChoice;
+    return lose;
   } else if (playerChoice === "paper" && computerChoice === "rock") {
-    return "You win! " + playerChoice + " beats " + computerChoice;
+    win += playerChoice + " beats " + computerChoice;
+    return win;
   } else if (playerChoice === "paper" && computerChoice === "paper") {
-    return "It's a tie!"
+    return tie;
   }
 
   // Paper conditionals
   else if (playerChoice === "scissors" && computerChoice === "rock") {
-    return "You lose!" + computerChoice + " beats " + playerChoice;
+    lose += computerChoice + " beats " + playerChoice;
+    return lose;
   } else if (playerChoice === "scissors" && computerChoice === "paper") {
-    return "You win!" + playerChoice + " beats " + computerChoice;
+    win += playerChoice + " beats " + computerChoice;
+    return win;
   } else {
-    return "It's a tie!"
+    return tie;
   }
 }
 
 // game() to tally scores of player and computer and determine a winner after 5 rounds
 function game() {
 
+  // Track wins after each round is played
+  let playerWins = 0;
+  let computerWins = 0;
+
+  // Set up game to consist of 5 rounds total
+  for (let i = 0; i < 5; i++) {
+
+    // Store the return value of a round
+    let round = playRound(getPlayerChoice(), getComputerChoice());
+
+    // Compare return value of round and update score based on standing
+    if (round === win) {
+      console.log(win);
+      playerWins ++;
+    } else if (round === lose) {
+      console.log(lose);
+      computerWins ++;
+    } else {
+      console.log(tie);
+      playerWins += 0;
+      computerWins += 0;
+    }
+
+    // Reset standing variables to prevent extra concatenation after each round
+    win = "You win! ";
+    lose = "You lose! ";
+    tie = "It's a tie!";
+  }
+
+  // At the end of 5 rounds, determine winner
+  if (playerWins > computerWins) {
+    console.log("Final Score: " + playerWins + " - " + computerWins);
+    console.log("Congrats, you won the best of 5!");
+  } else {
+    console.log("Final Score: " + playerWins + " - " + computerWins);
+    console.log("Sorry, you lost the best of 5!");
+  }
 }
+
+// Run the game
+game();
