@@ -30,7 +30,7 @@ function getPlayerChoice() {
 }
 
 // Global variables used to record the status for individual rounds and
-// allow for tracking across multiple around
+// allow for tracking across multiple rounds
 let win = "You win! ";
 let lose = "You lose! ";
 let tie = "It's a tie!";
@@ -113,5 +113,30 @@ function game() {
   }
 }
 
+// DOM manipulation and events
+const buttons = document.querySelectorAll("button");
+buttons.forEach(choice => choice.addEventListener("click", function(e) {
+  if (e.target.id === "rock") {
+    console.log(playRound("rock", getComputerChoice()));
+    win = "You win! ";
+    lose = "You lose! ";
+    tie = "It's a tie!";
+  }
+  
+  if (e.target.id === "paper") {
+    console.log(playRound("paper", getComputerChoice()));
+    win = "You win! ";
+    lose = "You lose! ";
+    tie = "It's a tie!";
+  }
+
+  if (e.target.id === "scissors") {
+    console.log(playRound("scissors", getComputerChoice()));
+    win = "You win! ";
+    lose = "You lose! ";
+    tie = "It's a tie!";
+  }
+}));
+
 // Run the game
-game();
+// game();
