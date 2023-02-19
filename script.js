@@ -17,18 +17,6 @@ function getComputerChoice() {
   }
 }
 
-// getPlayerChoice() to receive input and return player's choice of rock, paper, or scissors
-function getPlayerChoice() {
-
-  // Ask the player what their choice is
-  let playerChoice = prompt("Do you choose rock, paper, or scissors?");
-
-  // Make their choice case-insensitive
-  playerChoice = playerChoice.toLowerCase();
-  console.log("You chose " + playerChoice);
-  return playerChoice;
-}
-
 // Global variables used to record the status for individual rounds and
 // allow for tracking across multiple rounds
 let win = "You win! ";
@@ -71,6 +59,38 @@ function playRound(playerChoice, computerChoice) {
   }
 }
 
+// Player choice
+const buttons = document.querySelectorAll("button");
+buttons.forEach(choice => choice.addEventListener("click", function(e) {
+  if (e.target.id === "rock") {
+    paragraph.textContent = playRound("rock", getComputerChoice());
+    outcome.appendChild(paragraph);
+    win = "You win! ";
+    lose = "You lose! ";
+    tie = "It's a tie!";
+  }
+  
+  if (e.target.id === "paper") {
+    paragraph.textContent = playRound("paper", getComputerChoice());
+    outcome.appendChild(paragraph);
+    win = "You win! ";
+    lose = "You lose! ";
+    tie = "It's a tie!";
+  }
+
+  if (e.target.id === "scissors") {
+    paragraph.textContent = playRound("scissors", getComputerChoice());
+    outcome.appendChild(paragraph);
+    win = "You win! ";
+    lose = "You lose! ";
+    tie = "It's a tie!";
+  }
+}));
+
+// Create variables to show and display outcomes
+const outcome = document.querySelector("#outcome");
+const paragraph = document.createElement("p");
+
 // game() to tally scores of player and computer and determine a winner after 5 rounds
 function game() {
 
@@ -112,31 +132,6 @@ function game() {
     console.log("Sorry, you lost the best of 5!");
   }
 }
-
-// DOM manipulation and events
-const buttons = document.querySelectorAll("button");
-buttons.forEach(choice => choice.addEventListener("click", function(e) {
-  if (e.target.id === "rock") {
-    console.log(playRound("rock", getComputerChoice()));
-    win = "You win! ";
-    lose = "You lose! ";
-    tie = "It's a tie!";
-  }
-  
-  if (e.target.id === "paper") {
-    console.log(playRound("paper", getComputerChoice()));
-    win = "You win! ";
-    lose = "You lose! ";
-    tie = "It's a tie!";
-  }
-
-  if (e.target.id === "scissors") {
-    console.log(playRound("scissors", getComputerChoice()));
-    win = "You win! ";
-    lose = "You lose! ";
-    tie = "It's a tie!";
-  }
-}));
 
 // Run the game
 // game();
